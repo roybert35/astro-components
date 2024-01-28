@@ -1,0 +1,26 @@
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+*.js
+*.map
+
+# Compiled JavaScript
+dist/
+
+# npm lock file
+package-lock.json
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+
+#Astro files
+astro.config.mjs
