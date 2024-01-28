@@ -24,3 +24,7 @@ Thumbs.db
 
 #Astro files
 astro.config.mjs
+
+# Test files
+src/components
+

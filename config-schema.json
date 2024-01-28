@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+
+  "title": "Astro Components Configuration",
+
+  "description": "Astro components cli Configuration properties",
+
+  "required": ["questionMe"],
+
+  "type": "object",
+
+  "properties": {
+    "questionMe": {
+      "type": "boolean"
+    },
+    "reactJsxTemplate": {
+      "type": "string"
+    },
+    "reactTsx": {
+      "type": "string"
+    },
+    "vueJSTemplate": {
+      "type": "string"
+    },
+    "vueTSTemplate":{
+      "type": "string"
+    },
+    "svelteJSTemplate": {
+      "type": "string"
+    },
+    "svelteTSTemplate": {
+      "type": "string"
+    }
+  }
+}

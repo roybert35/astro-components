@@ -1,16 +1,5 @@
 import readline from "readline/promises";
-import readlineSync from "readline";
 
-readlineSync.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
-
-process.stdin.on('keypress', (key, data) => {
-  if (data.ctrl && data.name === 't') {
-    process.exit();
-  } else {
-    
-  }
-});
 
 /**
  * This function read answer by the end user
@@ -22,8 +11,8 @@ export async function readFromConsole(question: string) {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    terminal: false,
-    
+    terminal: false
+
   });
   try {
     // Wait for the user response
