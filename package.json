@@ -1,0 +1,25 @@
+{
+  "name": "astro-components",
+  "version": "0.0.1",
+  "description": "This is cli for astro developers to improve the coding productivity",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roybert35/astro-components.git"
+  },
+  "keywords": [
+    "astro",
+    "commponents",
+    "cli",
+    "generate"
+  ],
+  "author": "Roibert Peñaloza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roybert35/astro-components/issues"
+  },
+  "homepage": "https://github.com/roybert35/astro-components#readme"
+}
