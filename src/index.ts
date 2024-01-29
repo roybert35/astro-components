@@ -1,13 +1,14 @@
-// archivo-main.ts
+#! /usr/bin/env node
 import chalk from "chalk";
 import { resolve } from "path";
-import packageJson from "../package.json";
+import packageJson from "../package.json" assert { type: "json" };
 import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper";
 import { readFromConsole } from "./lib/read-console";
 import { Config, SupportedIntegrations, ValidExtensions } from "./types";
 
 import gradientBox from "gradient-boxen";
 const nombreArchivo = "astro.config.mjs";
+console.log("Hola")
 const verifyIsAstroProject = await verifyFileExistence(nombreArchivo);
 if (!verifyIsAstroProject) {
   console.error(chalk.red("Debe ser en un proyecto de astro"));
@@ -31,19 +32,22 @@ console.log(
 
 import { program } from "commander";
 program
-  .version("1.0.0")
+  .version(packageJson.version)
   .description("Mi aplicación de línea de comandos")
   .option("-n, --name <nombre>", "Especificar un nombre")
   .option("--help", "Mostrar ayuda")
   .parse(process.argv);
 const params = program.opts();
-console.log("Help ", params.help);
+console.log(params)
 if (params.help) {
   program.outputHelp();
   process.exit();
 }
 
-console.log("Nombre ", params.name);
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+  process.exit();
+}
 
 console.log(
   chalk.white(
@@ -62,7 +66,6 @@ const loadConfig = async () => {
     const configJSON = await readFile(filename);
     if (configJSON) {
       const configParse = JSON.parse(configJSON) as Config;
-      console.log("Configuración", configParse);
       config = {
         ...config,
         ...configParse,

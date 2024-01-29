@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
     "target": "ESNext",  
     "module": "ESNext",
     "allowJs": true,      
     "resolveJsonModule": true,                        /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */                                 /* Specify the root folder within your source files. */
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true,                     /* Specify how TypeScript looks up a file from a given module specifier. */
+    "allowSyntheticDefaultImports": true,    
+    "outDir": "dist", 
+    "emitDeclarationOnly": false,           /* Specify how TypeScript looks up a file from a given module specifier. */
              /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   }
