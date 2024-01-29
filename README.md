@@ -1,5 +1,5 @@
 
-![[347shots_so.png]]
+<img src="https://mdgzcgkcwpqlkyorzjqf.supabase.co/storage/v1/object/public/bucket-packages/347shots_so.png?t=2024-01-29T20%3A27%3A15.754Z" />
 
 ## Instalation
 ******
@@ -47,7 +47,8 @@ npx acc src/components/layout/Header2
 
 Then it will create you the component like so:
 
-![[Pasted image 20240129151600.png]]
+<img src="https://mdgzcgkcwpqlkyorzjqf.supabase.co/storage/v1/object/public/bucket-packages/file_explorer.png" />
+
 
 ```
 > [!CAUTION]
