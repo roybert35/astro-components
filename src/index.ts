@@ -9,7 +9,10 @@ import { Config, SupportedIntegrations, ValidExtensions } from "./types";
 import gradientBox from "gradient-boxen";
 const nombreArchivo = "astro.config.mjs";
 const verifyIsAstroProject = await verifyFileExistence(nombreArchivo);
-if (!verifyIsAstroProject) process.exit();
+if (!verifyIsAstroProject) {
+  console.error(chalk.red("Debe ser en un proyecto de astro"));
+  process.exit()
+};
 
 const borderColor = "#3245ff";
 const textColor = "#f041ff";
