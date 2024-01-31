@@ -2,6 +2,8 @@ export type SupportedIntegrations = "react" | "vuejs" | "svelte";
 
 export type ValidExtensions = ".tsx" | ".astro" | ".svelte" | ".vue" | ".jsx";
 
+export type AllIntegrations = SupportedIntegrations | "astro";
+
 export type Config = {
   /**
    * Indica si se debe realizar una pregunta.

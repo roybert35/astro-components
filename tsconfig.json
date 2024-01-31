@@ -10,6 +10,7 @@
     "outDir": "dist", 
     "emitDeclarationOnly": false,           /* Specify how TypeScript looks up a file from a given module specifier. */
              /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,
+    "esModuleInterop": true                              /* Skip type checking all .d.ts files. */
   }
 }
