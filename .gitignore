@@ -6,9 +6,6 @@ node_modules/
 *.js
 *.map
 
-# Compiled JavaScript
-dist/
-
 # npm lock file
 package-lock.json
 
