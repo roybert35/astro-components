@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import {
   AllIntegrations,
   Config,
@@ -6,13 +7,14 @@ import {
 } from "../types";
 import { readFile, verifyFileExistence } from "./file-helper";
 import { readFromConsole } from "./read-console";
+import select, { Separator } from "@inquirer/select";
 
 export const verifyIsAstroProject = async (filename: string) => {
   const verifyIsAstroProject = await verifyFileExistence(filename);
   if (!verifyIsAstroProject) {
     return false;
   }
-  return true
+  return true;
 };
 
 export const verifyIntegration = (
@@ -56,9 +58,7 @@ export const verifyParametersAndSetComponentName = async ({
 }> => {
   if (parameters.length === 0) {
     try {
-      const componentName = await readFromConsole(
-        "Nombre del componente: "
-      );
+      const componentName = await readFromConsole("Nombre del componente: ");
       if (!componentName) {
         console.log("You must provide a name for the component");
         return {
@@ -116,14 +116,29 @@ export const validateFileExtensionIntegrations = async ({
   integrations,
 }: {
   integrations: SupportedIntegrations[];
-}): Promise<AllIntegrations> => {
-  const message = `Este componente de que framework es (Astro, ${integrations.join(
-    ","
-  )}) (astro default): `;
-  const componentFramework = (await readFromConsole(
-    message
-  )) as AllIntegrations;
-  return componentFramework;
+}): Promise<AllIntegrations | ""> => {
+  try {
+    const allIntegrations: AllIntegrations[] = ["astro", ...integrations];
+    const choices = allIntegrations.map((integration) => {
+      const name = integration.charAt(0).toUpperCase() + integration.slice(1);
+      return {
+        name,
+        value: integration,
+      };
+    });
+
+    const answer: AllIntegrations = await select({
+      message: "Select a framework from your integrations",
+      choices,
+    });
+
+    // const componentFramework = (await readFromConsole(
+    //   message
+    // )) as AllIntegrations;
+    return answer;
+  } catch (error) {
+    return "";
+  }
 };
 
 export const loadConfig = async (): Promise<Config> => {
@@ -150,14 +165,18 @@ export const validateAvailableIntegrationsAndSetFileExtension = async ({
   integrations: SupportedIntegrations[];
   typeScriptEnabled: boolean;
 }): Promise<{
-  componentExtension: string
-  frameworkChoosed: AllIntegrations
+  componentExtension: string;
+  frameworkChoosed: AllIntegrations;
 }> => {
   if (integrations.length > 0) {
-    const frameworkChoosed: AllIntegrations =
+    const frameworkChoosed: AllIntegrations | "" =
       await validateFileExtensionIntegrations({
         integrations,
       });
+    if(frameworkChoosed === ""){
+      console.log(chalk.red("No integration found, please try again"));
+      process.exit(1);
+    } 
     const componentFrameworkExtension: Record<
       SupportedIntegrations | "astro",
       ValidExtensions

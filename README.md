@@ -1,11 +1,22 @@
 
 <img src="https://mdgzcgkcwpqlkyorzjqf.supabase.co/storage/v1/object/public/bucket-packages/347shots_so.png?t=2024-01-29T20%3A27%3A15.754Z" />
 
+## Descripción:
+El CLI astro-cli-components es una herramienta de línea de comandos diseñada para simplificar y acelerar la creación de componentes en proyectos basados en Astro, un framework web ultrarrápido.
+
+### Características Principales:
+#### Generación Rápida de Componentes:
+
+Permite a los desarrolladores crear nuevos componentes rápidamente con una sola línea de comando.
+
+#### Estructura y Archivos Predefinidos:
+
+Genera automáticamente la estructura de archivos estándar para un componente en Astro, incluyendo archivos HTML, CSS y JS.
+
 ## Instalation
 ******
-
 ```bash
-npm i -D astro-components-cli
+ npm i -D astro-components-cli
 ```
 
 or global instalation

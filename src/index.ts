@@ -7,8 +7,7 @@ import { readFromConsole } from "./lib/read-console";
 import {
   AllIntegrations,
   Config,
-  SupportedIntegrations,
-  ValidExtensions,
+  SupportedIntegrations
 } from "./types";
 
 import gradientBox from "gradient-boxen";
@@ -38,11 +37,10 @@ import {
   getComponentTemplate,
   loadConfig,
   validateAvailableIntegrationsAndSetFileExtension,
-  validateFileExtensionIntegrations,
-  verifyIntegration,
   verifyIsAstroProject,
-  verifyParametersAndSetComponentName,
+  verifyParametersAndSetComponentName
 } from "./lib/astro-lib";
+import confirm from '@inquirer/confirm';
 program
   .version(packageJson.version)
   .description("Astro component cli")
@@ -66,6 +64,9 @@ console.log(
     "Lets start create a new component and improve tour productivity. "
   )
 );
+
+console.log("                                                             ")
+console.log("                                                             ")
 
 let config: Config = {
   questionMe: true,
@@ -122,16 +123,11 @@ const componentTemplate: string = await getComponentTemplate({
 });
 
 if (config.questionMe) {
-  let answer:"S"| "N" | string = ""
-  while (answer !== "S" && answer !== "N"){
-    answer = await readFromConsole(
-      chalk.blue(
-        `¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder}(S/N): `
-      )
-    );
-  }
+  const answer = await confirm({ message: chalk.blue(
+    `¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder} (S/N): `
+  ) });
  
-  if (answer === "S") {
+  if (answer) {
     await writeFile(componentAbsoulteRoot, componentTemplate, sourceFolder);
     console.log("Componente creado exitosamente ");
   } else {
