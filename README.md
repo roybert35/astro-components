@@ -23,6 +23,13 @@ Permite a los desarrolladores crear nuevos componentes rápidamente con una sola
 
 Genera automáticamente la estructura de archivos estándar para un componente en Astro, incluyendo archivos HTML, CSS y JS.
 
+
+#### Detección de los frameworks usados:
+
+  
+
+La herramienta detecta automaticamente si el proyecto tiene algunas integraciones implementadas.
+
   
 
 ## Instalation
