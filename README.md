@@ -19,10 +19,12 @@ npm i -g astro-components-cli
 ************
  
 ```bash
-npx acc 
+npx acc [NameComponent]
 ```
 
 ### Parameters
+
+[NameComponent] Name of the component to be created 
 
 If you pass a name after the command it wil create a component with this name.
 
