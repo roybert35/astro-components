@@ -43,7 +43,7 @@ export const verifyParametersAndSetComponentName = async ({ parameters, }) => {
             }
             return {
                 componentName,
-                sourceFolder: "src/components/",
+                sourceFolder: "src/components",
             };
         }
         catch (error) {
@@ -55,7 +55,7 @@ export const verifyParametersAndSetComponentName = async ({ parameters, }) => {
         if (!component.includes("/")) {
             return {
                 componentName: component,
-                sourceFolder: "src/components/",
+                sourceFolder: "src/components",
             };
         }
         const arrayArgsComponent = component.split("/");

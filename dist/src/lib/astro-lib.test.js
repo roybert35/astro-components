@@ -1,7 +1,6 @@
-import { describe, expect, test } from '@jest/globals';
 import { getComponentTemplate, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./astro-lib";
-import * as fileHelper from "./file-helper";
-import * as consoleReader from "./read-console";
+import * as fileHelper from "./file-helper.js";
+import * as consoleReader from "./read-console.js";
 jest.mock("./file-helper");
 jest.mock("./read-console");
 describe("CLI Functions", () => {
@@ -33,7 +32,7 @@ describe("CLI Functions", () => {
         expect(consoleSpy).toHaveBeenCalledWith("Nombre del componente: ");
         expect(result).toEqual({
             componentName: "TestComponent",
-            sourceFolder: "src/components/",
+            sourceFolder: "src/components",
         });
     });
     // Pruebas para addCurrentInterations, validateFileExtensionIntegrations, loadConfig, etc.

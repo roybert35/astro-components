@@ -49,7 +49,7 @@ describe("CLI Functions", () => {
     );
     expect(result).toEqual({
       componentName: "TestComponent",
-      sourceFolder: "src/components/",
+      sourceFolder: "src/components",
     });
   });
 

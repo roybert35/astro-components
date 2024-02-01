@@ -2,8 +2,8 @@
 import chalk from "chalk";
 import { resolve } from "path";
 import packageJson from "../package.json" assert { type: "json" };
-import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper.js";
-import { readFromConsole } from "./lib/read-console.js";
+import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper";
+import { readFromConsole } from "./lib/read-console";
 import gradientBox from "gradient-boxen";
 const filename = "astro.config.mjs";
 const result = await verifyIsAstroProject(filename);
