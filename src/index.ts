@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 import chalk from "chalk";
-import { resolve } from "path";
+import { fileURLToPath } from 'url';
+import { resolve, dirname } from "path";
 import packageJson from "../package.json" assert { type: "json" };
 import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper";
 import { readFromConsole } from "./lib/read-console";
@@ -66,7 +67,6 @@ console.log(
 );
 
 console.log("                                                             ")
-console.log("                                                             ")
 
 let config: Config = {
   questionMe: true,
@@ -112,10 +112,12 @@ const {
 
 const componentFileName = `${componentName}${componentExtension}`;
 const componentAbsoulteRoot = `${sourceFolder}/${componentFileName}`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const baseTemplateUrl = "./src/templates/";
+const baseTemplateUrl = resolve(__dirname, "templates");
 
-const componentTemplate: string = await getComponentTemplate({
+let componentTemplate: string = await getComponentTemplate({
   frameworkChoosed,
   config,
   baseTemplateUrl,
@@ -124,10 +126,14 @@ const componentTemplate: string = await getComponentTemplate({
 
 if (config.questionMe) {
   const answer = await confirm({ message: chalk.blue(
-    `¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder} (S/N): `
+    `¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder} : `
   ) });
  
   if (answer) {
+    if(frameworkChoosed === "react"){
+       componentTemplate = componentTemplate.replaceAll("ReactComponent", componentName)
+    }
+   
     await writeFile(componentAbsoulteRoot, componentTemplate, sourceFolder);
     console.log("Componente creado exitosamente ");
   } else {

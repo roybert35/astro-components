@@ -219,22 +219,22 @@ export const getFileTemplateByFrameWork = (
     svelte: {
       js:
         config.svelteJSTemplate ??
-        `${baseTemplateUrl}svelte/SvelteComponentJavaScript.svelte`,
+        `${baseTemplateUrl}/svelte/SvelteComponentJavaScript.svelte`,
       ts:
         config.svelteTSTemplate ??
-        `${baseTemplateUrl}svelte/SvelteComponentTypeScript.svelte`,
+        `${baseTemplateUrl}/svelte/SvelteComponentTypeScript.svelte`,
     },
     react: {
       js:
         config.reactJsxTemplate ??
-        `${baseTemplateUrl}react/ReactComponentJavaScript.txt`,
+        `${baseTemplateUrl}/react/ReactComponentJavaScript.txt`,
       ts:
         config.reactTsx ??
-        `${baseTemplateUrl}react/ReactComponentTypeScript.txt`,
+        `${baseTemplateUrl}/react/ReactComponentTypeScript.txt`,
     },
     vuejs: {
-      js: `${baseTemplateUrl}vue/VueComponentTypeScript.txt`,
-      ts: `${baseTemplateUrl}vue/VueComponentTypeScript.txt`,
+      js: `${baseTemplateUrl}/vue/VueComponentTypeScript.txt`,
+      ts: `${baseTemplateUrl}/vue/VueComponentTypeScript.txt`,
     },
   };
 };
