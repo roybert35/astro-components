@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 import chalk from "chalk";
-import { resolve } from "path";
+import { dirname, resolve } from "path";
+import { fileURLToPath } from 'url';
 import packageJson from "../package.json" assert { type: "json" };
 import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper.js";
 import gradientBox from "gradient-boxen";
@@ -15,9 +16,9 @@ console.log(gradientBox(chalk.white(`Astro components cli v.${packageJson.versio
     padding: 1,
     margin: 0,
 }, [borderColor, textColor]));
+import confirm from '@inquirer/confirm';
 import { program } from "commander";
 import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./lib/astro-lib.js";
-import confirm from '@inquirer/confirm';
 program
     .version(packageJson.version)
     .description("Astro component cli")
@@ -34,7 +35,6 @@ if (!process.argv.slice(2).length) {
     process.exit();
 }
 console.log(chalk.white("Lets start create a new component and improve tour productivity. "));
-console.log("                                                             ");
 console.log("                                                             ");
 let config = {
     questionMe: true,
@@ -64,16 +64,21 @@ const { componentExtension, frameworkChoosed, } = await validateAvailableIntegra
 });
 const componentFileName = `${componentName}${componentExtension}`;
 const componentAbsoulteRoot = `${sourceFolder}/${componentFileName}`;
-const baseTemplateUrl = "./src/templates/";
-const componentTemplate = await getComponentTemplate({
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const baseTemplateUrl = resolve(__dirname, "templates");
+let componentTemplate = await getComponentTemplate({
     frameworkChoosed,
     config,
     baseTemplateUrl,
     typeScriptEnabled,
 });
 if (config.questionMe) {
-    const answer = await confirm({ message: chalk.blue(`¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder} (S/N): `) });
+    const answer = await confirm({ message: chalk.blue(`¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder} : `) });
     if (answer) {
+        if (frameworkChoosed === "react") {
+            componentTemplate = componentTemplate.replaceAll("ReactComponent", componentName);
+        }
         await writeFile(componentAbsoulteRoot, componentTemplate, sourceFolder);
         console.log("Componente creado exitosamente ");
     }
