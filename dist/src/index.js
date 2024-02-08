@@ -3,7 +3,6 @@ import chalk from "chalk";
 import { resolve } from "path";
 import packageJson from "../package.json" assert { type: "json" };
 import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper.js";
-import { readFromConsole } from "./lib/read-console.js";
 import gradientBox from "gradient-boxen";
 const filename = "astro.config.mjs";
 const result = await verifyIsAstroProject(filename);
@@ -17,7 +16,8 @@ console.log(gradientBox(chalk.white(`Astro components cli v.${packageJson.versio
     margin: 0,
 }, [borderColor, textColor]));
 import { program } from "commander";
-import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName, } from "./lib/astro-lib";
+import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./lib/astro-lib";
+import confirm from '@inquirer/confirm';
 program
     .version(packageJson.version)
     .description("Astro component cli")
@@ -34,6 +34,8 @@ if (!process.argv.slice(2).length) {
     process.exit();
 }
 console.log(chalk.white("Lets start create a new component and improve tour productivity. "));
+console.log("                                                             ");
+console.log("                                                             ");
 let config = {
     questionMe: true,
 };
@@ -70,11 +72,8 @@ const componentTemplate = await getComponentTemplate({
     typeScriptEnabled,
 });
 if (config.questionMe) {
-    let answer = "";
-    while (answer !== "S" && answer !== "N") {
-        answer = await readFromConsole(chalk.blue(`¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder}(S/N): `));
-    }
-    if (answer === "S") {
+    const answer = await confirm({ message: chalk.blue(`¡Todo listo! ¿Quieres agregar este archivo ${componentFileName} a ${sourceFolder} (S/N): `) });
+    if (answer) {
         await writeFile(componentAbsoulteRoot, componentTemplate, sourceFolder);
         console.log("Componente creado exitosamente ");
     }

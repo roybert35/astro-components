@@ -1,6 +1,7 @@
+import { describe, expect, test } from '@jest/globals';
 import { getComponentTemplate, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./astro-lib";
-import * as fileHelper from "./file-helper.js";
-import * as consoleReader from "./read-console.js";
+import * as fileHelper from "./file-helper";
+import * as consoleReader from "./read-console";
 jest.mock("./file-helper");
 jest.mock("./read-console");
 describe("CLI Functions", () => {
