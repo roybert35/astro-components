@@ -1,5 +1,7 @@
-import { readFile, verifyFileExistence } from "./file-helper";
-import { readFromConsole } from "./read-console";
+import chalk from "chalk";
+import { readFile, verifyFileExistence } from "./file-helper.js";
+import { readFromConsole } from "./read-console.js";
+import select from "@inquirer/select";
 export const verifyIsAstroProject = async (filename) => {
     const verifyIsAstroProject = await verifyFileExistence(filename);
     if (!verifyIsAstroProject) {
@@ -81,9 +83,27 @@ export const addCurrentInterations = ({ integrations, file, }) => {
     }
 };
 export const validateFileExtensionIntegrations = async ({ integrations, }) => {
-    const message = `Este componente de que framework es (Astro, ${integrations.join(",")}) (astro default): `;
-    const componentFramework = (await readFromConsole(message));
-    return componentFramework;
+    try {
+        const allIntegrations = ["astro", ...integrations];
+        const choices = allIntegrations.map((integration) => {
+            const name = integration.charAt(0).toUpperCase() + integration.slice(1);
+            return {
+                name,
+                value: integration,
+            };
+        });
+        const answer = await select({
+            message: "Select a framework from your integrations",
+            choices,
+        });
+        // const componentFramework = (await readFromConsole(
+        //   message
+        // )) as AllIntegrations;
+        return answer;
+    }
+    catch (error) {
+        return "";
+    }
 };
 export const loadConfig = async () => {
     let config = {
@@ -107,6 +127,10 @@ export const validateAvailableIntegrationsAndSetFileExtension = async ({ integra
         const frameworkChoosed = await validateFileExtensionIntegrations({
             integrations,
         });
+        if (frameworkChoosed === "") {
+            console.log(chalk.red("No integration found, please try again"));
+            process.exit(1);
+        }
         const componentFrameworkExtension = {
             astro: ".astro",
             react: ".tsx",
