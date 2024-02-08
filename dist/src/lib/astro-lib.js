@@ -150,6 +150,10 @@ export const validateAvailableIntegrationsAndSetFileExtension = async ({ integra
             };
         }
     }
+    return {
+        componentExtension: ".astro",
+        frameworkChoosed: "astro"
+    };
 };
 export const getFileTemplateByFrameWork = (config, baseTemplateUrl) => {
     return {

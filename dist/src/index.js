@@ -18,7 +18,7 @@ console.log(gradientBox(chalk.white(`Astro components cli v.${packageJson.versio
 }, [borderColor, textColor]));
 import confirm from '@inquirer/confirm';
 import { program } from "commander";
-import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./lib/astro-lib.js";
+import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./lib/astro-lib";
 program
     .version(packageJson.version)
     .description("Astro component cli")
