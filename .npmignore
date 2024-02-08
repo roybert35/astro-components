@@ -1,5 +1,9 @@
-./src/*
+src/*
 .github/*
-./bin/*
+bin/*
 **/**.test.**
 astro.config.mjs
+jest.config.js
+config-schema.json
+astro-components.json
+babel.config.js
