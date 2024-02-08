@@ -1,10 +1,9 @@
 #! /usr/bin/env node
 import chalk from "chalk";
+import { dirname, resolve } from "path";
 import { fileURLToPath } from 'url';
-import { resolve, dirname } from "path";
 import packageJson from "../package.json" assert { type: "json" };
 import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper";
-import { readFromConsole } from "./lib/read-console";
 import {
   AllIntegrations,
   Config,
@@ -32,6 +31,7 @@ console.log(
   )
 );
 
+import confirm from '@inquirer/confirm';
 import { program } from "commander";
 import {
   addCurrentInterations,
@@ -41,7 +41,6 @@ import {
   verifyIsAstroProject,
   verifyParametersAndSetComponentName
 } from "./lib/astro-lib";
-import confirm from '@inquirer/confirm';
 program
   .version(packageJson.version)
   .description("Astro component cli")
