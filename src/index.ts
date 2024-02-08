@@ -5,6 +5,16 @@ import { fileURLToPath } from 'url';
 import packageJson from "../package.json" assert { type: "json" };
 import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper";
 import {
+  addCurrentInterations,
+  getComponentTemplate,
+  loadConfig,
+  validateAvailableIntegrationsAndSetFileExtension,
+  verifyIsAstroProject,
+  verifyParametersAndSetComponentName
+} from "./lib/astro-lib";
+import confirm from '@inquirer/confirm';
+import { program } from "commander";
+import {
   AllIntegrations,
   Config,
   SupportedIntegrations
@@ -31,16 +41,8 @@ console.log(
   )
 );
 
-import confirm from '@inquirer/confirm';
-import { program } from "commander";
-import {
-  addCurrentInterations,
-  getComponentTemplate,
-  loadConfig,
-  validateAvailableIntegrationsAndSetFileExtension,
-  verifyIsAstroProject,
-  verifyParametersAndSetComponentName
-} from "./lib/astro-lib";
+
+
 program
   .version(packageJson.version)
   .description("Astro component cli")
