@@ -1,6 +1,6 @@
 {
     "name": "astro-components-cli",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "This is cli for astro developers to improve the coding productivity",
     "main": "dist/src/index.js",
     "scripts": {
