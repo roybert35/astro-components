@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { readFile, verifyFileExistence } from "./file-helper";
-import { readFromConsole } from "./read-console";
+import { readFile, verifyFileExistence } from "./file-helper.js";
+import { readFromConsole } from "./read-console.js";
 import select from "@inquirer/select";
 export const verifyIsAstroProject = async (filename) => {
     const verifyIsAstroProject = await verifyFileExistence(filename);
@@ -150,6 +150,10 @@ export const validateAvailableIntegrationsAndSetFileExtension = async ({ integra
             };
         }
     }
+    return {
+        componentExtension: ".astro",
+        frameworkChoosed: "astro"
+    };
 };
 export const getFileTemplateByFrameWork = (config, baseTemplateUrl) => {
     return {

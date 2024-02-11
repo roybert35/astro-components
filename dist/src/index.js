@@ -1,9 +1,12 @@
 #! /usr/bin/env node
 import chalk from "chalk";
+import { dirname, resolve } from "path";
 import { fileURLToPath } from 'url';
-import { resolve, dirname } from "path";
 import packageJson from "../package.json" assert { type: "json" };
-import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper";
+import { readFile, verifyFileExistence, writeFile } from "./lib/file-helper.js";
+import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./lib/astro-lib.js";
+import confirm from '@inquirer/confirm';
+import { program } from "commander";
 import gradientBox from "gradient-boxen";
 const filename = "astro.config.mjs";
 const result = await verifyIsAstroProject(filename);
@@ -16,9 +19,6 @@ console.log(gradientBox(chalk.white(`Astro components cli v.${packageJson.versio
     padding: 1,
     margin: 0,
 }, [borderColor, textColor]));
-import { program } from "commander";
-import { addCurrentInterations, getComponentTemplate, loadConfig, validateAvailableIntegrationsAndSetFileExtension, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./lib/astro-lib";
-import confirm from '@inquirer/confirm';
 program
     .version(packageJson.version)
     .description("Astro component cli")
