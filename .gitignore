@@ -23,4 +23,5 @@ astro.config.mjs
 
 # Test files
 src/components
+.github/*
 
