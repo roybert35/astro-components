@@ -31,7 +31,7 @@ if (!result) {
 
 const borderColor = "#3245ff";
 const textColor = "#f041ff";
-const version = "0.0.17"
+const version = "0.0.18"
 
 console.log(
   gradientBox(

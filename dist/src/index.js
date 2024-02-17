@@ -14,13 +14,14 @@ if (!result) {
 }
 const borderColor = "#3245ff";
 const textColor = "#f041ff";
-console.log(gradientBox(chalk.white(`Astro components cli v.0.0.16`), {
+const version = "0.0.18";
+console.log(gradientBox(chalk.white(`Astro components cli v.${version}`), {
     borderStyle: "round",
     padding: 1,
     margin: 0,
 }, [borderColor, textColor]));
 program
-    .version("0.0.16")
+    .version(version)
     .description("Astro component cli")
     .option("-n, --name [name]", "Especificar un nombre")
     .option("-a, --alias [alias]", "Alias para la ruta de una carpeta")
