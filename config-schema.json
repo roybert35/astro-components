@@ -30,6 +30,9 @@
     },
     "svelteTSTemplate": {
       "type": "string"
+    },
+    "aliasses": {
+      "type": "object"
     }
   }
 }

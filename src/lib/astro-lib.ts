@@ -48,24 +48,45 @@ export const verifyIntegration = (
   return fileContainImportIntegration && fileContainIntegrationImplementation;
 };
 
-export const verifyParametersAndSetComponentName = async ({
-  parameters,
-}: {
-  parameters: string[];
-}): Promise<{
+type ParameterOptions = {
+  config: Config;
+  alias: string;
+};
+type ParametersProps =
+  | {
+      withAlias: "NO";
+      componentName: string;
+    }
+  | {
+      withAlias: "YES";
+      componentName: string;
+      options: ParameterOptions;
+    };
+
+function hasOptions(
+  props: ParametersProps
+): props is ParametersProps & { options: ParameterOptions } {
+  return props.withAlias === "YES";
+}
+
+export const verifyParametersAndSetComponentName = async (
+  props: ParametersProps
+): Promise<{
   componentName: string;
   sourceFolder: string;
 }> => {
-  if (parameters.length === 0) {
+  const { componentName, withAlias } = props;
+  if (!componentName) {
     try {
       const componentName = await readFromConsole("Nombre del componente: ");
       if (!componentName) {
-        console.log("You must provide a name for the component");
+        console.log(chalk.red("You must provide a name for the component"));
         return {
           componentName: "",
           sourceFolder: "",
         };
       }
+      //TODO: Question the user the source folder and if he define aliasses question if they want use it or not
       return {
         componentName,
         sourceFolder: "src/components",
@@ -74,20 +95,52 @@ export const verifyParametersAndSetComponentName = async ({
       console.log(error);
     }
   } else {
-    const component = parameters[0];
+    const component = componentName.split(".")[0];
+    let sourceFolder = "src/components";
+
+    // CASE 1: when the component name doesn't have src folder on the name
     if (!component.includes("/")) {
+      // CASE 2: when the user define a custom alias for components source folder
+      if (hasOptions(props)) {
+        const {
+          options: { config, alias },
+        } = props;
+        if (withAlias && config?.aliasses) {
+          const sourceConfigAlias = config?.aliasses[alias];
+          if (sourceConfigAlias) {
+            console.log(sourceConfigAlias);
+            sourceFolder = sourceConfigAlias;
+            return {
+              componentName: component,
+              sourceFolder,
+            };
+          } else {
+            console.log(chalk.red("The alias provided doesn't exist"));
+          }
+        } else {
+          console.log(chalk.red("The alias provided doesn't exist"));
+        }
+      }
+
+      /* 
+       If the user not previuosly define a custom alias and the name
+       doesn't have the source folder 
+      */
       return {
         componentName: component,
-        sourceFolder: "src/components",
+        sourceFolder,
       };
     }
+
+    // CASE 3: when the user name have the current component source folder
     const arrayArgsComponent = component.split("/");
-    const componentName = arrayArgsComponent[arrayArgsComponent.length - 1];
-    const sourceFolder = arrayArgsComponent
+    // Get the last item with the name of the component
+    const componentNameSource = arrayArgsComponent.at(-1).split(".")[0];
+    sourceFolder = arrayArgsComponent
       .slice(0, arrayArgsComponent.length - 1)
       .join("/");
     return {
-      componentName: componentName,
+      componentName: componentNameSource,
       sourceFolder,
     };
   }
@@ -173,10 +226,10 @@ export const validateAvailableIntegrationsAndSetFileExtension = async ({
       await validateFileExtensionIntegrations({
         integrations,
       });
-    if(frameworkChoosed === ""){
+    if (frameworkChoosed === "") {
       console.log(chalk.red("No integration found, please try again"));
       process.exit(1);
-    } 
+    }
     const componentFrameworkExtension: Record<
       SupportedIntegrations | "astro",
       ValidExtensions
@@ -201,8 +254,8 @@ export const validateAvailableIntegrationsAndSetFileExtension = async ({
   }
   return {
     componentExtension: ".astro",
-    frameworkChoosed: "astro"
-  }
+    frameworkChoosed: "astro",
+  };
 };
 
 export const getFileTemplateByFrameWork = (
@@ -248,11 +301,13 @@ export const getComponentTemplate = async ({
   config,
   baseTemplateUrl,
   typeScriptEnabled,
+  componentExtension
 }: {
   frameworkChoosed: AllIntegrations;
   config: Config;
   baseTemplateUrl: string;
   typeScriptEnabled: boolean;
+  componentExtension?: string;
 }) => {
   let content = "Astro component work";
   if (frameworkChoosed !== "astro") {
@@ -264,6 +319,14 @@ export const getComponentTemplate = async ({
       js: string;
       ts: string;
     };
+    // TODO: Know if I should deny this operation or not
+    // *NOTE: For nox, I will allow  the user to do it
+    if (typeScriptEnabled && frameworkChoosed === "react" && componentExtension === ".jsx") {
+      const fileFrameworkTemplate =
+        contentFile["js"];
+      const readedTemplateFramework = await readFile(fileFrameworkTemplate);
+      return readedTemplateFramework;
+    }
     const fileFrameworkTemplate = contentFile[typeScriptEnabled ? "ts" : "js"];
     const readedTemplateFramework = await readFile(fileFrameworkTemplate);
     return readedTemplateFramework;

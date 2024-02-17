@@ -1,0 +1,26 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": false
+
+    },
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": true
+    },
+    "target": "es2018",
+    "keepClassNames": true,
+    "loose": true
+  },
+  "module": {
+    "type": "es6",
+    "strict": true,
+    "strictMode": true,
+    "lazy": false,
+    "noInterop": true
+  },
+  "sourceMaps": "inline",
+  "minify": true
+}

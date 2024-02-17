@@ -54,4 +54,10 @@ export type Config = {
    * @description Esta propiedad permite especificar una plantilla para archivos Svelte TS.
    */
   svelteTSTemplate?: string;
+    /**
+   * Alias para las carpetas 
+   *
+   * @description Alias para las carpetas donde se guardaran los componentes
+   */
+    aliasses?: Record<string, string>;
 };

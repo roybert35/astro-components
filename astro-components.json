@@ -1,4 +1,7 @@
 {
   "$schema": "./config-schema.json",
-  "questionMe": true
+  "questionMe": true,
+  "aliasses": {
+    "react": "src/components/react"
+  }
 }

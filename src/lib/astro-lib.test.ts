@@ -41,7 +41,8 @@ describe("CLI Functions", () => {
       .mockResolvedValue("TestComponent");
 
     const result = await verifyParametersAndSetComponentName({
-      parameters: [],
+      componentName: "TestComponent",
+      withAlias: "NO"
     });
 
     expect(consoleSpy).toHaveBeenCalledWith(

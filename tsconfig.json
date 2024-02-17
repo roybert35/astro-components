@@ -11,6 +11,10 @@
     "emitDeclarationOnly": false,           /* Specify how TypeScript looks up a file from a given module specifier. */
              /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,
-    "esModuleInterop": true                              /* Skip type checking all .d.ts files. */
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["./src/lib/*"]
+    }                              /* Skip type checking all .d.ts files. */
   }
 }

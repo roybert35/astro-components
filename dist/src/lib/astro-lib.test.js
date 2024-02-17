@@ -1,9 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
-import { getComponentTemplate, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./astro-lib";
-import * as fileHelper from "./file-helper";
-import * as consoleReader from "./read-console";
-jest.mock("./file-helper");
-jest.mock("./read-console");
+import { getComponentTemplate, verifyIsAstroProject, verifyParametersAndSetComponentName } from "./astro-lib.js";
+import * as fileHelper from "./file-helper.js";
+import * as consoleReader from "./read-console.js";
+jest.mock("./file-helper.js");
+jest.mock("./read-console.js");
 describe("CLI Functions", () => {
     beforeEach(() => {
         jest.clearAllMocks();
@@ -28,7 +28,8 @@ describe("CLI Functions", () => {
             .spyOn(consoleReader, "readFromConsole")
             .mockResolvedValue("TestComponent");
         const result = await verifyParametersAndSetComponentName({
-            parameters: [],
+            componentName: "TestComponent",
+            withAlias: "NO"
         });
         expect(consoleSpy).toHaveBeenCalledWith("Nombre del componente: ");
         expect(result).toEqual({
